@@ -1,0 +1,92 @@
+local Camera = game.Workspace.CurrentCamera
+local CameraPart = game.Workspace:FindFirstChild("CameraPart")
+local lookAtPart = game.Workspace:FindFirstChild("lookAt")
+local UserInputService = game:GetService("UserInputService")
+local movement_d = Vector3.new(0,0,1)
+local movement_w = Vector3.new(0,1,0)
+local keyPressed
+
+
+-- camera variables(boring)
+local pos = CameraPart.Position
+local lookAt = lookAtPart.Position
+local cameraCFrame = CFrame.lookAt(pos, lookAt)
+
+-- changing type of the camera(boring)
+Camera.CameraType = Enum.CameraType.Scriptable
+
+-- making the camera at the postion of the part (easy but hard)
+CameraPart.CFrame = cameraCFrame
+Camera.CFrame = CameraPart.CFrame
+
+-- binding the camera
+
+-- d
+local function onInputBegan(input, _gameProcessed)
+	if input.KeyCode == Enum.KeyCode.D then
+		keyPressed = true
+		while keyPressed do wait()
+			Camera.CFrame = Camera.CFrame + movement_d
+		end
+	end
+end
+
+UserInputService.InputBegan:Connect(onInputBegan)
+
+-- a
+local function onInputBegan2(input, _gameProcessed)
+	if input.KeyCode == Enum.KeyCode.A then
+		keyPressed = true
+		while keyPressed do wait()
+			Camera.CFrame = Camera.CFrame - movement_d
+		end
+	end
+end
+
+UserInputService.InputBegan:Connect(onInputBegan2)
+
+-- w
+local function onInputBegan3(input, _gameProcessed)
+	if input.KeyCode == Enum.KeyCode.W then
+		keyPressed = true
+		while keyPressed do wait()
+			Camera.CFrame = Camera.CFrame + movement_w
+		end
+	end
+end
+
+UserInputService.InputBegan:Connect(onInputBegan3)
+
+-- s
+local function onInputBegan4(input, _gameProcessed)
+	if input.KeyCode == Enum.KeyCode.S then
+		keyPressed = true
+		while keyPressed do wait()
+			Camera.CFrame = Camera.CFrame - movement_w
+		end
+	end
+end
+
+UserInputService.InputBegan:Connect(onInputBegan4)
+
+UserInputService.InputEnded:Connect(function(key)
+	if key.KeyCode == Enum.KeyCode.S then
+		keyPressed = false
+	end
+end)
+UserInputService.InputEnded:Connect(function(key)
+	if key.KeyCode == Enum.KeyCode.A then
+		keyPressed = false
+	end
+end)
+UserInputService.InputEnded:Connect(function(key)
+	if key.KeyCode == Enum.KeyCode.W then
+		keyPressed = false
+	end
+end)
+	
+UserInputService.InputEnded:Connect(function(key)
+	if key.KeyCode == Enum.KeyCode.D then
+		keyPressed = false
+	end
+end)
